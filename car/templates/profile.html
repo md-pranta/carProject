@@ -1,0 +1,49 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div>
+  <a class="btn btn-primary" href={% url 'edit'%}>edit profile</a>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for val in data %}
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{val.image.url}}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h3 class="card-title">car model name:{{val.car_name}}</h3>
+          <h6 class="card-title">car price{{val.car_price}}$</h6>
+        </div>
+        <a href="#" class="text-decoration-none" text-dark>
+          <div class="card-footer align-items-center">
+            <small class="text-dark">Purchased</small>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+<div class="d-flex flex-wrap justify-content-center px-5 pt -5">
+  {% for post in data %}
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.content}}</p>
+        <p>author:{{post.author.first_name}}</p>
+        <div>
+          <p>
+            catagory: {% for val in post.catagory.all %}
+            <button class="btn btn-success btn-sm m-1" disabled>{{val}}</button>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>

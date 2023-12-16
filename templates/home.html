@@ -1,0 +1,63 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-6 p-5">
+    <h1>
+      About<br />
+      Company of Cars
+    </h1>
+    <p>
+      Tired of being tied to a single brand? Do you think
+      <em>just possibly</em> your needs should come before allegiances to
+      manufacturers or suppliers? <em>So do we.</em> Our crew of incredibly
+      over-qualified retail, wholesale, service and after market experts work
+      together to give you the most colourful, fun, transparent and informed
+      perspective possible — all with the crazy goal of changing your mind about
+      used car dealers forever <em>(yes … we’ve heard)</em><em>.</em>
+    </p>
+  </div>
+  <div class="col-6">
+    <img src="{% static 'car2.webp' %}" alt="car" />
+  </div>
+</div>
+<div class="d-flex flex-wrap px-5 pt-3 pb-5 align-items-center">
+  {% for val in brand %}
+  <div class="px-5 pt-3">
+    <a
+      href="{% url 'brand_wise' val.slug %}"
+      class="text-decoration-none text-dark"
+      >{{val.name}}</a
+    >
+  </div>
+  {% endfor %}
+</div>
+<div class="py-2">
+  <h3>Total car found: {{data | length}}</h3>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for val in data %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{val.image.url}}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h3 class="card-title">car model name:{{val.car_name}}</h3>
+        <h6 class="card-title">car price{{val.car_price}}$</h6>
+      </div>
+      <a
+        href="{% url 'detail' val.id %}"
+        class="text-decoration-none"
+        text-dark
+      >
+        <div class="card-footer align-items-center">
+          <small class="text-muted">View Car Model details...</small>
+        </div>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
+<p class="card-text">{{val.description}}</p>
